@@ -1,8 +1,16 @@
-- name: ssh clone style
-  uses: Yikun/hub-mirror-action@master
-  with:
-    src: github/doradombox
-    dst: gitee/dorado
-    dst_key: '${{ secrets.GITEE_PRIVATE_KEY }}'
-    dst_token: '${{ secrets.GITEE_TOKEN }}'
-    clone_style: ssh
+name: Sync
+on: [ push ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync to Gitee
+        uses: wearerequired/git-mirror-action@master
+        env:
+          # 注意在 Settings->Secrets 配置 GITEE_PRIVATE_KEY
+          SSH_PRIVATE_KEY: ${{ secrets.GITEE_PRIVATE_KEY }}
+        with:
+          # 注意替换为你的 GitHub 源仓库地址
+          source-repo: "git@github.com:doradombox/sync2gitee.git"
+          # 注意替换为你的 Gitee 目标仓库地址
+          destination-repo: "git@gitee.com:dorado/sync2gitee.git"
