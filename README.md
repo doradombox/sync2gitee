@@ -1,2 +1,2 @@
 #sync2gitee
-sa阿萨
+同步GitHub的repo到gitee
